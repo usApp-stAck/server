@@ -53,6 +53,7 @@ use OCP\Defaults;
 use OCP\IConfig;
 use OCP\IInitialStateService;
 use OCP\INavigationManager;
+use OCP\IUserSession;
 use OCP\Support\Subscription\IRegistry;
 use OCP\Util;
 
@@ -122,7 +123,12 @@ class TemplateLayout extends \OC_Template {
 					break;
 				}
 			}
-			$userDisplayName = \OC_User::getDisplayName();
+
+			$userDisplayName = false;
+			$user = \OC::$server->get(IUserSession::class)->getUser();
+			if ($user) {
+				$userDisplayName = $user->getDisplayName();
+			}
 			$this->assign('user_displayname', $userDisplayName);
 			$this->assign('user_uid', \OC_User::getUser());
 
@@ -153,7 +159,11 @@ class TemplateLayout extends \OC_Template {
 			\OC_Util::addStyle('guest');
 			$this->assign('bodyid', 'body-login');
 
-			$userDisplayName = \OC_User::getDisplayName();
+			$userDisplayName = false;
+			$user = \OC::$server->get(IUserSession::class)->getUser();
+			if ($user) {
+				$userDisplayName = $user->getDisplayName();
+			}
 			$this->assign('user_displayname', $userDisplayName);
 			$this->assign('user_uid', \OC_User::getUser());
 		} elseif ($renderAs === TemplateResponse::RENDER_AS_PUBLIC) {
