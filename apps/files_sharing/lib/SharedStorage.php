@@ -44,6 +44,7 @@ use OCP\Files\Cache\ICacheEntry;
 use OCP\Files\NotFoundException;
 use OCP\Files\Storage\IDisableEncryptionStorage;
 use OCP\Files\Storage\IStorage;
+use OCP\IUserManager;
 use OCP\Lock\ILockingProvider;
 use OCP\Share\IShare;
 
@@ -386,7 +387,11 @@ class SharedStorage extends \OC\Files\Storage\Wrapper\Jail implements ISharedSto
 			return new FailedCache();
 		}
 
-		$this->cache = new \OCA\Files_Sharing\Cache($storage, $sourceRoot, $this->superShare);
+		$this->cache = new \OCA\Files_Sharing\Cache(
+			$storage,
+			$sourceRoot,
+			\OC::$server->get(IUserManager::class)
+		);
 		return $this->cache;
 	}
 
