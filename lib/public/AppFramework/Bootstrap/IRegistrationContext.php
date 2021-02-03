@@ -31,6 +31,7 @@ namespace OCP\AppFramework\Bootstrap;
 
 use OCP\AppFramework\IAppContainer;
 use OCP\Capabilities\ICapability;
+use OCP\AppFramework\Maintenance\IOptionalIndex;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Files\Template\ICustomTemplateProvider;
 use OCP\IContainer;
@@ -209,4 +210,13 @@ interface IRegistrationContext {
 	 * @since 21.0.0
 	 */
 	public function registerTemplateProvider(string $providerClass): void;
+
+	/**
+	 * Register an optional index that is able to display and add indexes to the system
+	 *
+	 * @param string $class
+	 * @psalm-param class-string<IOptionalIndex> $class
+	 * @since 22.0.0
+	 */
+	public function registerOptionalIndex(string $class): void;
 }

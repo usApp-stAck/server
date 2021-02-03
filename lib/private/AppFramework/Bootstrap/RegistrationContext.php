@@ -34,6 +34,7 @@ use Closure;
 use OC\Support\CrashReport\Registry;
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
+use OCP\AppFramework\Maintenance\IOptionalIndex;
 use OCP\AppFramework\Middleware;
 use OCP\Authentication\IAlternativeLogin;
 use OCP\Capabilities\ICapability;
@@ -88,6 +89,9 @@ class RegistrationContext {
 
 	/** @var ServiceRegistration<ICustomTemplateProvider>[] */
 	private $templateProviders = [];
+
+	/** @var ServiceRegistration<IOptionalIndex> */
+	private $optionalIndexes = [];
 
 	/** @var ILogger */
 	private $logger;
@@ -205,6 +209,13 @@ class RegistrationContext {
 					$providerClass
 				);
 			}
+
+			public function registerOptionalIndex(string $class): void {
+				$this->context->registerOptionalIndex(
+					$this->appId,
+					$class
+				);
+			}
 		};
 	}
 
@@ -273,6 +284,10 @@ class RegistrationContext {
 
 	public function registerTemplateProvider(string $appId, string $class): void {
 		$this->templateProviders[] = new ServiceRegistration($appId, $class);
+	}
+
+	public function registerOptionalIndex(string $appId, string $class): void {
+		$this->optionalIndexes[] = new ServiceRegistration($appId, $class);
 	}
 
 	/**
@@ -458,5 +473,12 @@ class RegistrationContext {
 	 */
 	public function getTemplateProviders(): array {
 		return $this->templateProviders;
+	}
+
+	/**
+	 * @return ServiceRegistration<IOptionalIndex>[]
+	 */
+	public function getOptionalIndexes(): array {
+		return $this->optionalIndexes;
 	}
 }
