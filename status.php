@@ -51,7 +51,7 @@ try {
 		'version' => implode('.', \OCP\Util::getVersion()),
 		'versionstring' => OC_Util::getVersionString(),
 		'edition' => '',
-		'productname' => $defaults->getName(),
+		'productname' => $defaults->getProductName(),
 		'extendedSupport' => \OCP\Util::hasExtendedSupport()
 	];
 	if (OC::$CLI) {

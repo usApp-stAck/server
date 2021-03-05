@@ -283,6 +283,7 @@ class JSConfigHelper {
 			"_theme" => json_encode([
 				'entity' => $this->defaults->getEntity(),
 				'name' => $this->defaults->getName(),
+				'productName' => $this->defaults->getProductName(),
 				'title' => $this->defaults->getTitle(),
 				'baseUrl' => $this->defaults->getBaseUrl(),
 				'syncClientUrl' => $this->defaults->getSyncClientUrl(),
