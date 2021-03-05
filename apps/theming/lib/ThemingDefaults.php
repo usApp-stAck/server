@@ -76,6 +76,8 @@ class ThemingDefaults extends \OC_Defaults {
 	/** @var string */
 	private $entity;
 	/** @var string */
+	private $productName;
+	/** @var string */
 	private $url;
 	/** @var string */
 	private $color;
@@ -120,6 +122,7 @@ class ThemingDefaults extends \OC_Defaults {
 		$this->name = parent::getName();
 		$this->title = parent::getTitle();
 		$this->entity = parent::getEntity();
+		$this->productName = parent::getName();
 		$this->url = parent::getBaseUrl();
 		$this->color = parent::getColorPrimary();
 		$this->iTunesAppId = parent::getiTunesAppId();
@@ -141,6 +144,10 @@ class ThemingDefaults extends \OC_Defaults {
 
 	public function getEntity() {
 		return strip_tags($this->config->getAppValue('theming', 'name', $this->entity));
+	}
+
+	public function getProductName() {
+		return strip_tags($this->config->getAppValue('theming', 'productName', $this->productName));
 	}
 
 	public function getBaseUrl() {
