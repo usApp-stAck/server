@@ -29,6 +29,7 @@
 namespace OC\Encryption;
 
 use OC\Cache\CappedMemoryCache;
+use OCA\Files_External\Service\GlobalStoragesService;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\Share\IManager;
@@ -111,10 +112,12 @@ class File implements \OCP\Encryption\IFile {
 
 		// check if it is a group mount
 		if (\OCP\App::isEnabled("files_external")) {
-			$mounts = \OCA\Files_External\MountConfig::getSystemMountPoints();
-			foreach ($mounts as $mount) {
-				if ($mount['mountpoint'] == substr($ownerPath, 1, strlen($mount['mountpoint']))) {
-					$mountedFor = $this->util->getUserWithAccessToMountPoint($mount['applicable']['users'], $mount['applicable']['groups']);
+			/** @var GlobalStoragesService $storageService */
+			$storageService = \OC::$server->get(GlobalStoragesService::class);
+			$storages = $storageService->getAllStorages();
+			foreach ($storages as $storage) {
+				if ($storage->getMountPoint() == substr($ownerPath, 0, strlen($storage->getMountPoint()))) {
+					$mountedFor = $this->util->getUserWithAccessToMountPoint($storage->getApplicableUsers(), $storage->getApplicableGroups());
 					$userIds = array_merge($userIds, $mountedFor);
 				}
 			}
