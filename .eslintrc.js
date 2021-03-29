@@ -8,7 +8,8 @@ module.exports = {
 		escapeHTML: true,
 		oc_userconfig: true,
 		dayNames: true,
-		firstDay: true
+		firstDay: true,
+		supportedBrowsersRegExp: true,
 	},
 	extends: ['@nextcloud'],
 	rules: {

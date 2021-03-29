@@ -3,6 +3,7 @@ const { merge } = require('webpack-merge')
 const { VueLoaderPlugin } = require('vue-loader')
 const BabelLoaderExcludeNodeModulesExcept = require('babel-loader-exclude-node-modules-except')
 const path = require('path')
+const browserslistUseragentRegexp = require('browserslist-useragent-regexp')
 
 const accessibility = require('./apps/accessibility/webpack')
 const comments = require('./apps/comments/webpack')
@@ -20,6 +21,7 @@ const weather_status = require('./apps/weather_status/webpack')
 const twofactor_backupscodes = require('./apps/twofactor_backupcodes/webpack')
 const updatenotification = require('./apps/updatenotification/webpack')
 const workflowengine = require('./apps/workflowengine/webpack')
+const { DefinePlugin } = require('webpack')
 
 const modules = {
 	accessibility,
@@ -121,7 +123,13 @@ module.exports = []
 
 			],
 		},
-		plugins: [new VueLoaderPlugin()],
+		plugins: [
+			new VueLoaderPlugin(),
+			new DefinePlugin({
+				// Generate a regex that matches user agents to detect incompatible browsers
+				supportedBrowsersRegExp: browserslistUseragentRegexp.getUserAgentRegExp({ allowHigherVersions: true }),
+			}),
+		],
 		resolve: {
 			alias: {
 				OC: path.resolve(__dirname, './core/src/OC'),
