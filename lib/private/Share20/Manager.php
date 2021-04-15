@@ -349,7 +349,7 @@ class Manager implements IManager {
 		// Check that we do not share with more permissions than we have
 		if ($share->getPermissions() & ~$permissions) {
 			$path = $userFolder->getRelativePath($share->getNode()->getPath());
-			$message_t = $this->l->t('Can’t increase permissions of %s', [$path]);
+			$message_t = $this->l->t('Cannot increase permissions of %s', [$path]);
 			throw new GenericShareException($message_t, $message_t, 404);
 		}
 
@@ -365,11 +365,11 @@ class Manager implements IManager {
 
 		if ($share->getNode() instanceof \OCP\Files\File) {
 			if ($share->getPermissions() & \OCP\Constants::PERMISSION_DELETE) {
-				$message_t = $this->l->t('Files can’t be shared with delete permissions');
+				$message_t = $this->l->t('Files cannot be shared with delete permissions');
 				throw new GenericShareException($message_t);
 			}
 			if ($share->getPermissions() & \OCP\Constants::PERMISSION_CREATE) {
-				$message_t = $this->l->t('Files can’t be shared with create permissions');
+				$message_t = $this->l->t('Files cannot be shared with create permissions');
 				throw new GenericShareException($message_t);
 			}
 		}
@@ -428,7 +428,7 @@ class Manager implements IManager {
 			$date->setTime(0, 0, 0);
 			$date->add(new \DateInterval('P' . $this->shareApiInternalDefaultExpireDays() . 'D'));
 			if ($date < $expirationDate) {
-				$message = $this->l->t('Can’t set expiration date more than %s days in the future', [$this->shareApiInternalDefaultExpireDays()]);
+				$message = $this->l->t('Cannot set expiration date more than %s days in the future', [$this->shareApiInternalDefaultExpireDays()]);
 				throw new GenericShareException($message, $message, 404);
 			}
 		}
@@ -504,7 +504,7 @@ class Manager implements IManager {
 			$date->setTime(0, 0, 0);
 			$date->add(new \DateInterval('P' . $this->shareApiLinkDefaultExpireDays() . 'D'));
 			if ($date < $expirationDate) {
-				$message = $this->l->t('Can’t set expiration date more than %s days in the future', [$this->shareApiLinkDefaultExpireDays()]);
+				$message = $this->l->t('Cannot set expiration date more than %s days in the future', [$this->shareApiLinkDefaultExpireDays()]);
 				throw new GenericShareException($message, $message, 404);
 			}
 		}
