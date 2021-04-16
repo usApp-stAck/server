@@ -43,10 +43,10 @@ use OCP\Dashboard\IWidget;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Files\Template\ICustomTemplateProvider;
 use OCP\Http\WellKnown\IHandler;
-use OCP\ILogger;
 use OCP\Notification\INotifier;
 use OCP\Search\IProvider;
 use OCP\Support\CrashReport\IReporter;
+use Psr\Log\LoggerInterface;
 use Throwable;
 use function array_shift;
 
@@ -94,10 +94,10 @@ class RegistrationContext {
 	/** @var ServiceRegistration<INotifier>[] */
 	private $notifierServices;
 
-	/** @var ILogger */
+	/** @var LoggerInterface */
 	private $logger;
 
-	public function __construct(ILogger $logger) {
+	public function __construct(LoggerInterface $logger) {
 		$this->logger = $logger;
 	}
 
@@ -299,9 +299,8 @@ class RegistrationContext {
 					->registerCapability($registration->getService());
 			} catch (Throwable $e) {
 				$appId = $registration->getAppId();
-				$this->logger->logException($e, [
-					'message' => "Error during capability registration of $appId: " . $e->getMessage(),
-					'level' => ILogger::ERROR,
+				$this->logger->error("Error during capability registration of $appId: " . $e->getMessage(), [
+					'exception' => $e,
 				]);
 			}
 		}
@@ -316,9 +315,8 @@ class RegistrationContext {
 				$registry->registerLazy($registration->getService());
 			} catch (Throwable $e) {
 				$appId = $registration->getAppId();
-				$this->logger->logException($e, [
-					'message' => "Error during crash reporter registration of $appId: " . $e->getMessage(),
-					'level' => ILogger::ERROR,
+				$this->logger->error("Error during crash reporter registration of $appId: " . $e->getMessage(), [
+					'exception' => $e,
 				]);
 			}
 		}
@@ -333,9 +331,8 @@ class RegistrationContext {
 				$dashboardManager->lazyRegisterWidget($panel->getService());
 			} catch (Throwable $e) {
 				$appId = $panel->getAppId();
-				$this->logger->logException($e, [
-					'message' => "Error during dashboard registration of $appId: " . $e->getMessage(),
-					'level' => ILogger::ERROR,
+				$this->logger->error("Error during dashboard registration of $appId: " . $e->getMessage(), [
+					'exception' => $e,
 				]);
 			}
 		}
@@ -351,9 +348,8 @@ class RegistrationContext {
 				);
 			} catch (Throwable $e) {
 				$appId = $registration->getAppId();
-				$this->logger->logException($e, [
-					'message' => "Error during event listener registration of $appId: " . $e->getMessage(),
-					'level' => ILogger::ERROR,
+				$this->logger->error("Error during event listener registration of $appId: " . $e->getMessage(), [
+					'exception' => $e,
 				]);
 			}
 		}
@@ -377,9 +373,8 @@ class RegistrationContext {
 					);
 			} catch (Throwable $e) {
 				$appId = $registration->getAppId();
-				$this->logger->logException($e, [
-					'message' => "Error during service registration of $appId: " . $e->getMessage(),
-					'level' => ILogger::ERROR,
+				$this->logger->error("Error during service registration of $appId: " . $e->getMessage(), [
+					'exception' => $e,
 				]);
 			}
 		}
@@ -394,9 +389,8 @@ class RegistrationContext {
 					);
 			} catch (Throwable $e) {
 				$appId = $registration->getAppId();
-				$this->logger->logException($e, [
-					'message' => "Error during service alias registration of $appId: " . $e->getMessage(),
-					'level' => ILogger::ERROR,
+				$this->logger->error("Error during service alias registration of $appId: " . $e->getMessage(), [
+					'exception' => $e,
 				]);
 			}
 		}
@@ -411,9 +405,8 @@ class RegistrationContext {
 					);
 			} catch (Throwable $e) {
 				$appId = $registration->getAppId();
-				$this->logger->logException($e, [
-					'message' => "Error during service alias registration of $appId: " . $e->getMessage(),
-					'level' => ILogger::ERROR,
+				$this->logger->error("Error during service alias registration of $appId: " . $e->getMessage(), [
+					'exception' => $e,
 				]);
 			}
 		}
@@ -430,9 +423,8 @@ class RegistrationContext {
 					->registerMiddleWare($middleware->getService());
 			} catch (Throwable $e) {
 				$appId = $middleware->getAppId();
-				$this->logger->logException($e, [
-					'message' => "Error during capability registration of $appId: " . $e->getMessage(),
-					'level' => ILogger::ERROR,
+				$this->logger->error("Error during capability registration of $appId: " . $e->getMessage(), [
+					'exception' => $e,
 				]);
 			}
 		}
