@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '62929cc646134fbd409cfb4eacb7039d15763b96',
+    'reference' => 'a011b7021ef7153acce6978a1c65db0a8c7ec32d',
     'name' => 'files_external/3rdparty',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '62929cc646134fbd409cfb4eacb7039d15763b96',
+      'reference' => 'a011b7021ef7153acce6978a1c65db0a8c7ec32d',
     ),
     'icewind/smb' => 
     array (
@@ -31,12 +31,12 @@
     ),
     'icewind/streams' => 
     array (
-      'pretty_version' => 'v0.7.3',
-      'version' => '0.7.3.0',
+      'pretty_version' => 'v0.7.4',
+      'version' => '0.7.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '22ef9fc5b50d645dbc202206a656cc4dde28f95c',
+      'reference' => '93bce472202d36d9808c30eaa52a1dc72b39e04c',
     ),
   ),
 );
