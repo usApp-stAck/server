@@ -5,7 +5,7 @@
 		</p>
 		<p>
 			<label for="ldap_loginfilter_username">
-				<?php p($l->t('LDAP / AD Username:'));?>
+				<?php p($l->t('LDAP/AD Username:'));?>
 			</label>
 
 			<input type="checkbox" id="ldap_loginfilter_username"
