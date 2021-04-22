@@ -563,7 +563,7 @@ class UsersController extends AUserData {
 				throw new OCSException('', OCSController::RESPOND_NOT_FOUND);
 			}
 		} else {
-			$targetUser = $currentLoggedInUser->getUID();
+			$targetUser = $currentLoggedInUser;
 		}
 
 		// Editing self (display, email)
